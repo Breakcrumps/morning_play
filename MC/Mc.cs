@@ -1,35 +1,26 @@
 using Godot;
 
-namespace Morning_Play {
-	public partial class Mc : CharacterBody2D {
-		public const float Speed = 300.0f;
-		public const float JumpVelocity = -400.0f;
 
-		public override void _PhysicsProcess(double delta) {
-			Vector2 velocity = Velocity;
+namespace Morning_Play.MC {
 
-			// Add the gravity.
-			if (!IsOnFloor()) {
-				velocity += GetGravity() * (float)delta;
-			}
+  public partial class Mc : CharacterBody2D {
 
-			// Handle Jump.
-			if (Input.IsActionJustPressed("ui_accept") && IsOnFloor()) {
-				velocity.Y = JumpVelocity;
-			}
+    static int Speed => 20;
 
-			// Get the input direction and handle the movement/deceleration.
-			// As good practice, you should replace UI actions with custom gameplay actions.
-			Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-			if (direction != Vector2.Zero) {
-				velocity.X = direction.X * Speed;
-			}
-			else {
-				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			}
+    Controller Controller => GetNode<Controller>("Controller");
+    AnimationPlayer Player => GetNode<AnimationPlayer>("AnimationPlayer");
 
-			Velocity = velocity;
-			MoveAndSlide();
-		}
-	}
+    public override void _PhysicsProcess(double delta) {
+      ApplyVelocity(Controller.Velocity);
+      MoveAndSlide();
+    }
+
+    void ApplyVelocity(Vector2 velocity) {
+      if (velocity == Vector2.Zero)
+        Player.Play("Idle");
+      else
+        Player.Play("Walk");
+      Velocity = velocity * Speed;
+    }
+  }
 }
