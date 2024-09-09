@@ -5,7 +5,7 @@ namespace Morning_Play.MC {
 
   public partial class Mc : CharacterBody2D {
     
-    private static float AccelerationTime => 20;
+    private static float AccelerationTime => 5;
     private static float Speed { get; set; } = 0;
     private static float MaxSpeed => 50;
 
@@ -19,8 +19,10 @@ namespace Morning_Play.MC {
 
     private void ApplyVelocity(Vector2 velocity) {
 
-      if (velocity == Vector2.Zero)
+      if (velocity == Vector2.Zero) {
         Player.Play("Idle");
+        Speed = 0;
+      }
       else {
         Player.Play("Walk");
         if (Speed < MaxSpeed)
