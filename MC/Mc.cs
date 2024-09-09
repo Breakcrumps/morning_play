@@ -3,14 +3,14 @@ using Morning_Play.Globals;
 
 namespace Morning_Play.MC {
 
-  public partial class Mc : CharacterBody2D {
+  partial class Mc : CharacterBody2D {
     
     private static float AccelerationTime => 5;
     private static float Speed { get; set; } = 0;
     private static float MaxSpeed() {
-        if (Controller.Run)
-          return 100;
-        return 75;
+      if (Controller.Run)
+        return 100;
+      return 75;
     }
 
     private Controller Controller => GetNode<Controller>("Controller");

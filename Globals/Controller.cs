@@ -3,7 +3,7 @@ using Godot;
 
 namespace Morning_Play.Globals {
 
-  public partial class Controller : Node2D {
+  partial class Controller : Node2D {
 
     public static bool Run => IsActionPressed("Run");
 
