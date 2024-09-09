@@ -7,7 +7,11 @@ namespace Morning_Play.MC {
     
     private static float AccelerationTime => 5;
     private static float Speed { get; set; } = 0;
-    private static float MaxSpeed => 50;
+    private static float MaxSpeed() {
+        if (Controller.Run)
+          return 100;
+        return 75;
+    }
 
     private Controller Controller => GetNode<Controller>("Controller");
     private AnimationPlayer Player => GetNode<AnimationPlayer>("AnimationPlayer");
@@ -25,10 +29,10 @@ namespace Morning_Play.MC {
       }
       else {
         Player.Play("Walk");
-        if (Speed < MaxSpeed)
-          Speed += MaxSpeed / AccelerationTime;
+        if (Speed < MaxSpeed())
+          Speed += MaxSpeed() / AccelerationTime;
         else
-          Speed = MaxSpeed;
+          Speed = MaxSpeed();
       }
 
       Velocity = velocity.Normalized() * Speed;

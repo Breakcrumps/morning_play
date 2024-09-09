@@ -5,6 +5,8 @@ namespace Morning_Play.Globals {
 
   public partial class Controller : Node2D {
 
+    public static bool Run => IsActionPressed("Run");
+
     public static Vector2 Velocity => new(DirX(), DirY());
 
     private static int DirX() {
