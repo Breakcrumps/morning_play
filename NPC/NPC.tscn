@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://NPC/NPC.cs" id="1_kojak"]
 [ext_resource type="Texture2D" uid="uid://b2ayjwiclsx4s" path="res://ControlledCharacter/Sprite-0001.png" id="1_weakl"]
-[ext_resource type="Script" path="res://NPC/StateMachine.cs" id="2_mq2ms"]
-[ext_resource type="Script" path="res://NPC/NPCIdle.cs" id="3_nmooi"]
+[ext_resource type="Script" path="res://NPC/Support/StateMachine.cs" id="2_mq2ms"]
+[ext_resource type="Script" path="res://NPC/Support/States/NPCIdle.cs" id="3_nmooi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dol51"]
 size = Vector2(19, 31)
