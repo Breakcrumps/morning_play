@@ -9,7 +9,7 @@ namespace Morning_Play.ControlledCharacter {
     [Export]
     private Movement Movement { get; set; }
     [Export]
-    private AnimationPlayer Player { get; set; }
+    private AnimationPlayer AnimationPlayer { get; set; }
     [Export]
     private Controller Controller { get; set; }
 
@@ -21,20 +21,20 @@ namespace Morning_Play.ControlledCharacter {
 
     private void IdleAnimation() {
       if (WeaponOut) {
-        Player.Play("Unsheethed_Idle");
+        AnimationPlayer.Play("Unsheethed_Idle");
         return;
       }
-      Player.Play("Idle");
+      AnimationPlayer.Play("Idle");
     }
     private void WalkAnimation() {
       if (WeaponOut) {
-        Player.Play("Unsheethed_Walk");
+        AnimationPlayer.Play("Unsheethed_Walk");
         return;
       }
-      Player.Play("Walk");
+      AnimationPlayer.Play("Walk");
     }
     private void WeaponAnimation() {
-      Player.Play("Unsheethe");
+      AnimationPlayer.Play("Unsheethe");
       Controller.CanMove = false;
     }
 

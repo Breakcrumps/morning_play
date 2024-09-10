@@ -165,9 +165,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2nglr"]
 size = Vector2(19, 31)
 
-[node name="MC" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Movement")]
+[node name="MC" type="CharacterBody2D" node_paths=PackedStringArray("Movement")]
 script = ExtResource("1_tpurl")
-Controller = NodePath("Controller")
 Movement = NodePath("Movement")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -191,8 +190,8 @@ script = ExtResource("3_mhhr1")
 script = ExtResource("4_pvnam")
 Controller = NodePath("../Controller")
 
-[node name="Animator" type="Node2D" parent="." node_paths=PackedStringArray("Movement", "Player", "Controller")]
+[node name="Animator" type="Node2D" parent="." node_paths=PackedStringArray("Movement", "AnimationPlayer", "Controller")]
 script = ExtResource("5_qpw5d")
 Movement = NodePath("../Movement")
-Player = NodePath("../AnimationPlayer")
+AnimationPlayer = NodePath("../AnimationPlayer")
 Controller = NodePath("../Controller")

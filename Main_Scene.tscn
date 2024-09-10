@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://c2j7tqyhmiuhq"]
+[gd_scene load_steps=6 format=4 uid="uid://c2j7tqyhmiuhq"]
 
 [ext_resource type="PackedScene" uid="uid://b25pwv7emisxn" path="res://ControlledCharacter/MC.tscn" id="1_af0nf"]
 [ext_resource type="Texture2D" uid="uid://ddx3w0u0j60ko" path="res://Sprite-0002.png" id="2_mhlcb"]
+[ext_resource type="PackedScene" uid="uid://b74fs8xyttlyg" path="res://NPC/NPC.tscn" id="2_mxxks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lvtwj"]
 texture = ExtResource("2_mhlcb")
@@ -16,6 +17,9 @@ sources/0 = SubResource("TileSetAtlasSource_lvtwj")
 [node name="Node2D" type="Node2D"]
 
 [node name="MC" parent="." instance=ExtResource("1_af0nf")]
+
+[node name="NPC" parent="." instance=ExtResource("2_mxxks")]
+position = Vector2(50, 10)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -1

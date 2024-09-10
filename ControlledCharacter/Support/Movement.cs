@@ -19,15 +19,22 @@ namespace Morning_Play.ControlledCharacter {
 
     [Export]
     private Controller Controller { get; set; }
+    private ControlledCharacter Character => GetParent<ControlledCharacter>();
 
-    public Vector2 GetVelocity() {
+    public override void _PhysicsProcess(double delta) {
+      SetVelocity();
+    }
+
+    public void SetVelocity() {
 
       if (!Controller.CanMove) {
-        return Vector2.Zero;
+        Character.Velocity = Vector2.Zero;
+        return;
       }
       if (Controller.MovementDirection == Vector2.Zero) {
         EmitSignal("IdleAnimation");
-        return Vector2.Zero;
+        Character.Velocity = Vector2.Zero;
+        return;
       }
 
       EmitSignal("WalkAnimation");
@@ -35,7 +42,8 @@ namespace Morning_Play.ControlledCharacter {
         Speed += MaxSpeed() / AccelerationTime;
       else
         Speed = MaxSpeed();
-      return Controller.MovementDirection.Normalized() * Speed;
+      Character.Velocity = Controller.MovementDirection.Normalized() * Speed;
+      return;
       
     }
 
