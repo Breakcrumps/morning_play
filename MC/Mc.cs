@@ -19,8 +19,10 @@ namespace Morning_Play.MC {
       return 75;
     }
 
-    private McController Controller => GetNode<McController>("Controller");
-    private AnimationPlayer Player => GetNode<AnimationPlayer>("AnimationPlayer");
+    [Export]
+    private McController Controller { get; set; }
+    [Export]
+    private AnimationPlayer Player { get; set; }
 
     public override void _PhysicsProcess(double delta) {
       ManageWeapon();
