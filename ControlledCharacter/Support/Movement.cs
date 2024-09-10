@@ -9,17 +9,21 @@ namespace Morning_Play.ControlledCharacter {
     [Signal]
     public delegate void WalkAnimationEventHandler();
 
-    private static float AccelerationTime => 5;
-    private static float Speed { get; set; } = 0;
-    private float MaxSpeed() {
+    private static int AccelerationTime => 5;
+    private static int Speed { get; set; } = 0;
+    private int MaxSpeed() {
       if (Controller.Run)
-        return 100;
-      return 75;
+        return RunSpeed;
+      return WalkSpeed;
     }
+    [Export]
+    private int WalkSpeed { get; set; }
+    [Export]
+    private int RunSpeed { get; set; }
 
     [Export]
     private Controller Controller { get; set; }
-    private ControlledCharacter Character => GetParent<ControlledCharacter>();
+    private PlayableCharacter Character => GetParent<PlayableCharacter>();
 
     public override void _PhysicsProcess(double delta) {
       SetVelocity();

@@ -2,7 +2,7 @@ using Godot;
 
 namespace Morning_Play.ControlledCharacter {
 
-  partial class ControlledCharacter : CharacterBody2D {
+  partial class PlayableCharacter : CharacterBody2D {
     
     [Export]
     private Movement Movement { get; set; }

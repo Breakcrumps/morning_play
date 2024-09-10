@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "C:/Users/9/Modding/Godot and Friends/Godot_v4.4-dev1_mono_win64/Godot_v4.4-dev1_mono_win64.exe",
+            "program": "C:/Hacker_Shit/Godot And Friends/Godot_v4.4-dev1_mono_win64/Godot_v4.4-dev1_mono_win64.exe",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

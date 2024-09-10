@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://b25pwv7emisxn"]
 
+[ext_resource type="Script" path="res://ControlledCharacter/PlayableCharacter.cs" id="1_cclyo"]
 [ext_resource type="Texture2D" uid="uid://b2ayjwiclsx4s" path="res://ControlledCharacter/Sprite-0001.png" id="1_kjxek"]
-[ext_resource type="Script" path="res://ControlledCharacter/ControlledCharacter.cs" id="1_tpurl"]
 [ext_resource type="Script" path="res://ControlledCharacter/Support/Controller.cs" id="3_mhhr1"]
 [ext_resource type="Script" path="res://ControlledCharacter/Support/Movement.cs" id="4_pvnam"]
 [ext_resource type="Script" path="res://ControlledCharacter/Support/Animator.cs" id="5_qpw5d"]
@@ -163,11 +163,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2nglr"]
-size = Vector2(19, 31)
+size = Vector2(19, 16)
 
-[node name="MC" type="CharacterBody2D" node_paths=PackedStringArray("Movement")]
-script = ExtResource("1_tpurl")
-Movement = NodePath("Movement")
+[node name="MC" type="CharacterBody2D" groups=["MC"]]
+script = ExtResource("1_cclyo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_kjxek")
@@ -180,7 +179,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
+position = Vector2(-0.5, 8)
 shape = SubResource("RectangleShape2D_2nglr")
 
 [node name="Controller" type="Node2D" parent="."]
@@ -188,6 +187,8 @@ script = ExtResource("3_mhhr1")
 
 [node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("Controller")]
 script = ExtResource("4_pvnam")
+WalkSpeed = 75
+RunSpeed = 100
 Controller = NodePath("../Controller")
 
 [node name="Animator" type="Node2D" parent="." node_paths=PackedStringArray("Movement", "AnimationPlayer", "Controller")]
