@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cekvcfd07b0wx"]
+
+[ext_resource type="Script" path="res://Components/Weapon.cs" id="1_5aa3j"]
+
+[node name="Weapon" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_5aa3j")

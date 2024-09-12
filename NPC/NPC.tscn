@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b74fs8xyttlyg"]
+[gd_scene load_steps=10 format=3 uid="uid://b74fs8xyttlyg"]
 
 [ext_resource type="Script" path="res://NPC/NPC.cs" id="1_kojak"]
 [ext_resource type="Texture2D" uid="uid://b2ayjwiclsx4s" path="res://ControlledCharacter/Sprite-0001.png" id="1_weakl"]
@@ -6,10 +6,13 @@
 [ext_resource type="Script" path="res://NPC/Support/States/NPCIdle.cs" id="3_nmooi"]
 [ext_resource type="Script" path="res://NPC/Support/States/NPCFollow.cs" id="5_yiehr"]
 [ext_resource type="PackedScene" uid="uid://duissnhu3fc2c" path="res://Components/HealthComponent.tscn" id="6_evdp1"]
-[ext_resource type="PackedScene" uid="uid://xkpsa6basfcb" path="res://Components/HitboxComponent.tscn" id="7_e4p42"]
+[ext_resource type="PackedScene" uid="uid://xkpsa6basfcb" path="res://Components/HurtboxComponent.tscn" id="7_e4p42"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dol51"]
 size = Vector2(19, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87hw0"]
+size = Vector2(19, 31)
 
 [node name="NPC" type="CharacterBody2D"]
 script = ExtResource("1_kojak")
@@ -39,6 +42,11 @@ NPC = NodePath("../..")
 MovementSpeed = 50
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_evdp1")]
+MaxHealth = 100
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("7_e4p42")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("7_e4p42")]
 HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_87hw0")

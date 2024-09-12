@@ -12,14 +12,20 @@ namespace Morning_Play.ControlledCharacter {
     private AnimationPlayer AnimationPlayer { get; set; }
     [Export]
     private Controller Controller { get; set; }
+    [Export]
+    private bool CanAnimate { get; set; } = true;
 
     public override void _Ready() {
       Movement.IdleAnimation += IdleAnimation;
       Movement.WalkAnimation += WalkAnimation;
       Controller.Unsheethe += WeaponAnimation;
+      Controller.Attack += AttackAnimation;
     }
 
     private void IdleAnimation() {
+
+      if (!CanAnimate)
+        return;
 
       if (WeaponOut) {
         AnimationPlayer.Play("Unsheethed_Idle");
@@ -30,6 +36,9 @@ namespace Morning_Play.ControlledCharacter {
       
     }
     private void WalkAnimation() {
+
+      if (!CanAnimate)
+        return;
 
       if (WeaponOut) {
         AnimationPlayer.Play("Unsheethed_Walk");
@@ -42,6 +51,12 @@ namespace Morning_Play.ControlledCharacter {
     private void WeaponAnimation() {
       AnimationPlayer.Play("Unsheethe");
       Controller.CanMove = false;
+    }
+    private void AttackAnimation() {
+      if (!WeaponOut)
+        return;
+      AnimationPlayer.Play("SwordAttack");
+      CanAnimate = false;
     }
 
   }

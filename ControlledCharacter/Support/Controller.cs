@@ -10,8 +10,11 @@ namespace Morning_Play.ControlledCharacter {
 
     [Signal]
     public delegate void UnsheetheEventHandler();
+    [Signal]
+    public delegate void AttackEventHandler();
 
     private bool UnsheetheButton => IsActionJustPressed("Unsheethe");
+    private bool AttackButton => IsActionJustPressed("Attack");
     public bool Run => IsActionPressed("Run");
 
     public Vector2 MovementDirection => new(DirX(), DirY());
@@ -32,6 +35,9 @@ namespace Morning_Play.ControlledCharacter {
     public override void _PhysicsProcess(double delta) {
       if (UnsheetheButton)
         EmitSignal("Unsheethe");
+      if (AttackButton) {
+        EmitSignal("Attack");
+      }
     }
   
   }
