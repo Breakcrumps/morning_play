@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -18,11 +17,6 @@ namespace Morning_Play.NPC {
       foreach (var state in GetChildren().Cast<State>()) {
         states.Add(state.Name, state);
         state.Transition += OnTransition;
-      }
-
-      Console.WriteLine($"{states.Count}");
-      foreach (KeyValuePair<string, State> dictItem in states) {
-        Console.WriteLine($"{dictItem.Key}: {dictItem.Value}");
       }
 
       InitialState.Enter();

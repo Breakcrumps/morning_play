@@ -7,11 +7,11 @@ namespace Morning_Play.NPC {
     [Signal]
     public delegate void TransitionEventHandler(string newStateName);
 
-    abstract public void Enter();
-    abstract public void Exit();
+    public abstract void Enter();
+    public abstract void Exit();
 
-    abstract public void Process(double delta);
-    abstract public void PhysicsProcess(double delta);
+    public abstract void Process(double delta);
+    public abstract void PhysicsProcess(double delta);
 
   }
 

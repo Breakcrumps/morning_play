@@ -20,18 +20,24 @@ namespace Morning_Play.ControlledCharacter {
     }
 
     private void IdleAnimation() {
+
       if (WeaponOut) {
         AnimationPlayer.Play("Unsheethed_Idle");
         return;
       }
+
       AnimationPlayer.Play("Idle");
+      
     }
     private void WalkAnimation() {
+
       if (WeaponOut) {
         AnimationPlayer.Play("Unsheethed_Walk");
         return;
       }
+
       AnimationPlayer.Play("Walk");
+      
     }
     private void WeaponAnimation() {
       AnimationPlayer.Play("Unsheethe");

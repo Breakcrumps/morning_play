@@ -17,9 +17,9 @@ namespace Morning_Play.ControlledCharacter {
       return WalkSpeed;
     }
     [Export]
-    private int WalkSpeed { get; set; }
+    private int WalkSpeed { get; set; } = 75;
     [Export]
-    private int RunSpeed { get; set; }
+    private int RunSpeed { get; set; } = 100;
 
     [Export]
     private Controller Controller { get; set; }

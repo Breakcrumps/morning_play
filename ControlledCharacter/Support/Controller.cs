@@ -30,9 +30,8 @@ namespace Morning_Play.ControlledCharacter {
     }
 
     public override void _PhysicsProcess(double delta) {
-      if (UnsheetheButton) {
+      if (UnsheetheButton)
         EmitSignal("Unsheethe");
-      }
     }
   
   }
