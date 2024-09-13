@@ -41,8 +41,10 @@ script = ExtResource("5_yiehr")
 NPC = NodePath("../..")
 MovementSpeed = 50
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_evdp1")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Character", "StateMachine") instance=ExtResource("6_evdp1")]
 MaxHealth = 100
+Character = NodePath("..")
+StateMachine = NodePath("../StateMachine")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("7_e4p42")]
 HealthComponent = NodePath("../HealthComponent")

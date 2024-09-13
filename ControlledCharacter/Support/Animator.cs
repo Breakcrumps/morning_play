@@ -49,8 +49,15 @@ namespace Morning_Play.ControlledCharacter {
       
     }
     private void WeaponAnimation() {
+
+      if (WeaponOut) {
+        WeaponOut = false;
+        return;
+      }
+
       AnimationPlayer.Play("Unsheethe");
       Controller.CanMove = false;
+
     }
     private void AttackAnimation() {
       if (!WeaponOut)

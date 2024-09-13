@@ -2,10 +2,11 @@ using Godot;
 
 namespace Morning_Play.Types {
 
-  partial struct Attack(int attackDamage, int knockBack, Vector2 attackPosition) {
-    public readonly int AttackDamage => attackDamage;
-    public readonly int KnockBack => knockBack;
-    public readonly Vector2 AttackPosition => attackPosition;
+  partial struct Attack {
+    public int AttackDamage { get; set; }
+    public int KnockbackForce { get; set; }
+    public int StunTime { get; set; }
+    public Vector2 AttackPosition { get; set; }
   }
 
 }

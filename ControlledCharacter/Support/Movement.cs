@@ -47,7 +47,6 @@ namespace Morning_Play.ControlledCharacter {
       else
         Speed = MaxSpeed();
       Character.Velocity = Controller.MovementDirection.Normalized() * Speed;
-      return;
       
     }
 

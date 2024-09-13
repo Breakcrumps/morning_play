@@ -4,7 +4,11 @@ using Godot;
 
 namespace Morning_Play.NPC {
 
+  [GlobalClass]
   partial class StateMachine : Node2D {
+
+
+    public bool CanManageState { get; set; } = true;
 
     [Export]
     private State InitialState { get; set; }
@@ -25,10 +29,20 @@ namespace Morning_Play.NPC {
     }
 
     public override void _Process(double delta) {
+      
+      if (!CanManageState)
+        return;
+
       CurrentState.Process(delta);
+
     }
     public override void _PhysicsProcess(double delta) {
+
+      if (!CanManageState)
+        return;
+
       CurrentState.PhysicsProcess(delta);
+
     }
 
     private void OnTransition(string newStateName) {

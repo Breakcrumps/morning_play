@@ -11,7 +11,7 @@ namespace Morning_Play.Components {
     [Export]
     private int Knockback { get; set; } = 10;
     [Export]
-    private Vector2 AttackPosition { get; set; }
+    private int StunTime { get; set; } = 5;
 
     public override void _Ready() {
       AreaEntered += DealDamage;
@@ -19,7 +19,13 @@ namespace Morning_Play.Components {
 
     private void DealDamage(Area2D area) {
       var hurtbox = (HurtboxComponent)area;
-      Attack attack = new(AttackStrength, Knockback, AttackPosition);
+      Attack attack = new() {
+        AttackDamage = AttackStrength,
+        KnockbackForce = Knockback,
+        StunTime = StunTime,
+        AttackPosition = GlobalPosition
+      };
+      attack.AttackDamage = AttackStrength;
       hurtbox.TakeDamage(attack);
     }
 
