@@ -24,8 +24,10 @@ namespace Morning_Play.Components {
 
       Health -= attack.AttackDamage;
 
-      if (Health <= 0)
+      if (Health <= 0) {
         GetParent().QueueFree();
+        return;
+      }
 
       Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
 
