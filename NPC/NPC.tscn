@@ -25,6 +25,7 @@ vframes = 5
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
 position = Vector2(-0.5, 15)
 shape = SubResource("RectangleShape2D_dol51")
 
