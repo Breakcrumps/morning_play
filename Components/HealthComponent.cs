@@ -3,61 +3,59 @@ using Godot;
 using Morning_Play.NPC;
 using Morning_Play.Types;
 
-namespace Morning_Play.Components {
+namespace Morning_Play.Components;
 
-  [GlobalClass]
-  partial class HealthComponent : Node2D {
+[GlobalClass]
+partial class HealthComponent : Node2D {
 
-    [Export]
-    private int MaxHealth { get; set; }
-    private int Health { get; set; }
-    [Export]
-    private CharacterBody2D Character { get; set; }
-    [Export]
-    private StateMachine StateMachine { get; set; }
+  [Export]
+  private int MaxHealth { get; set; }
+  private int Health { get; set; }
+  [Export]
+  private CharacterBody2D Character { get; set; }
+  [Export]
+  private StateMachine StateMachine { get; set; }
 
-    public override void _Ready() {
-      Health = MaxHealth;
+  public override void _Ready() {
+    Health = MaxHealth;
+  }
+
+  public void TakeDamage(Attack attack) {
+
+    Health -= attack.AttackDamage;
+
+    if (Health <= 0) {
+      GetParent().QueueFree();
+      return;
     }
 
-    public void TakeDamage(Attack attack) {
+    Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
 
-      Health -= attack.AttackDamage;
+  }
 
-      if (Health <= 0) {
-        GetParent().QueueFree();
-        return;
-      }
+  private async void Knockback(Vector2 attackPos, int knockBackForce, int stunTime) {
 
-      Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
+    var initVelocity = (GlobalPosition - attackPos).Normalized() * knockBackForce;
+    Character.Velocity = initVelocity;
 
-    }
+    StateMachine.CanManageState = false;
+    
+    await Decelerate(stunTime, initVelocity);
 
-    private async void Knockback(Vector2 attackPos, int knockBackForce, int stunTime) {
+    StateMachine.CanManageState = true;
 
-      var initVelocity = (GlobalPosition - attackPos).Normalized() * knockBackForce;
-      Character.Velocity = initVelocity;
+  }
 
-      StateMachine.CanManageState = false;
-      
-      await Decelerate(stunTime, initVelocity);
+  private async Task Decelerate(int time, Vector2 initVelocity) {
 
-      StateMachine.CanManageState = true;
+    for (int i = time; i > 0; i--) {
 
-    }
+      await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-    private async Task Decelerate(int time, Vector2 initVelocity) {
-
-      for (int i = time; i > 0; i--) {
-
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-        var velocity = Character.Velocity;
-        velocity.X -= initVelocity.X / time;
-        velocity.Y -= initVelocity.Y / time;
-        Character.Velocity = velocity;
-
-      }
+      var velocity = Character.Velocity;
+      velocity.X -= initVelocity.X / time;
+      velocity.Y -= initVelocity.Y / time;
+      Character.Velocity = velocity;
 
     }
 
