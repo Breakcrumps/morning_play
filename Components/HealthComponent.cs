@@ -24,12 +24,10 @@ partial class HealthComponent : Node2D {
 
     Health -= attack.AttackDamage;
 
-    if (Health <= 0) {
-      GetParent().QueueFree();
-      return;
-    }
-
     Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
+
+    if (Health <= 0)
+      GetParent().QueueFree();
 
   }
 

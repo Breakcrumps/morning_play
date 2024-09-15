@@ -12,7 +12,6 @@ partial class StateMachine : Node2D {
 
   [Export]
   private State InitialState { get; set; }
-
   private State CurrentState { get; set; }
   private readonly Dictionary<string, State> states = [];
 
