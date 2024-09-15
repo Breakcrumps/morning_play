@@ -268,7 +268,7 @@ AnimationPlayer = NodePath("../AnimationPlayer")
 Controller = NodePath("../Controller")
 
 [node name="Weapon" parent="." instance=ExtResource("6_ts87b")]
-AttackStrength = 0
+AttackStrength = 50
 Knockback = 100
 StunTime = 15
 

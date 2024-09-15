@@ -20,18 +20,18 @@ partial class HealthComponent : Node2D {
     Health = MaxHealth;
   }
 
-  public void TakeDamage(Attack attack) {
+  public async void TakeDamage(Attack attack) {
 
     Health -= attack.AttackDamage;
 
-    Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
+    await Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
 
     if (Health <= 0)
       GetParent().QueueFree();
 
   }
 
-  private async void Knockback(Vector2 attackPos, int knockBackForce, int stunTime) {
+  private async Task Knockback(Vector2 attackPos, int knockBackForce, int stunTime) {
 
     var initVelocity = (GlobalPosition - attackPos).Normalized() * knockBackForce;
     Character.Velocity = initVelocity;
