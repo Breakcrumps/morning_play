@@ -113,9 +113,8 @@ NPC = NodePath("../..")
 MovementSpeed = 50
 Animator = NodePath("../../AnimationPlayer")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("Character", "StateMachine") instance=ExtResource("6_evdp1")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StateMachine") instance=ExtResource("6_evdp1")]
 MaxHealth = 100
-Character = NodePath("..")
 StateMachine = NodePath("../StateMachine")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("7_e4p42")]
@@ -128,7 +127,8 @@ shape = SubResource("RectangleShape2D_87hw0")
 
 [node name="Weapon" parent="." instance=ExtResource("8_vl4tt")]
 collision_mask = 1
-Knockback = 100
+Knockback = 300
+StunTime = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
 position = Vector2(1, 1)

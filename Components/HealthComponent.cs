@@ -42,14 +42,14 @@ partial class HealthComponent : Node2D {
     if (StateMachine is not null)
       StateMachine.CanManageState = false;
     else
-      Controller.CanMove = false;
+      Controller.CanControl = false;
     
     await Decelerate(stunTime, initVelocity);
 
     if (StateMachine is not null)
       StateMachine.CanManageState = true;
     else
-      Controller.CanMove = true;
+      Controller.CanControl = true;
 
   }
 

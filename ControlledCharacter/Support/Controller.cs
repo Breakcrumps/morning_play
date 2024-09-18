@@ -6,7 +6,9 @@ namespace Morning_Play.ControlledCharacter;
 partial class Controller : Node2D {
 
   [Export]
-  public bool CanMove { get; set; } = true;
+  public bool CanControl { get; set; } = true;
+  [Export]
+  public bool StopMove { get; set; } = false;
 
   [Signal]
   public delegate void UnsheetheEventHandler();
@@ -20,13 +22,11 @@ partial class Controller : Node2D {
   public Vector2 MovementDirection => new(DirX(), DirY());
 
   private int DirX() {
-    if (!CanMove)  return 0;
     if (IsActionPressed("Left") && !IsActionPressed("Right"))  return -1;
     if (IsActionPressed("Right") && !IsActionPressed("Left"))  return 1;
     return 0;
   }
   private int DirY() {
-    if (!CanMove)  return 0;
     if (IsActionPressed("Up") && !IsActionPressed("Down"))  return -1;
     if (IsActionPressed("Down") && !IsActionPressed("Up"))  return 1;
     return 0;

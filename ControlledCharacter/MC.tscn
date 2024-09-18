@@ -56,7 +56,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Controller:CanMove")
+tracks/2/path = NodePath("Weapon/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -68,7 +68,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Weapon/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Animator:CanAnimate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -80,14 +80,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Animator:CanAnimate")
+tracks/4/path = NodePath("Controller:StopMove")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_mjoma"]
@@ -162,14 +162,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Controller:CanMove")
+tracks/2/path = NodePath("Controller:StopMove")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0.633335),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_w3pbq"]
@@ -239,7 +239,7 @@ size = Vector2(19, 2)
 size = Vector2(46, 46)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5aw4"]
-size = Vector2(19, 31)
+size = Vector2(19, 32)
 
 [node name="MC" type="CharacterBody2D" groups=["MC"]]
 script = ExtResource("1_cclyo")
@@ -273,7 +273,6 @@ Controller = NodePath("../Controller")
 
 [node name="Weapon" parent="." instance=ExtResource("6_ts87b")]
 collision_layer = 1
-AttackStrength = 50
 Knockback = 100
 StunTime = 15
 
@@ -288,11 +287,10 @@ collision_layer = 1
 HealthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(-0.5, 0.5)
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_j5aw4")
 
-[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("Character", "Controller")]
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("Controller")]
 script = ExtResource("9_hstch")
 MaxHealth = 100
-Character = NodePath("..")
 Controller = NodePath("../Controller")

@@ -31,10 +31,14 @@ partial class Movement : Node2D {
 
   public void SetVelocity() {
 
-    if (!Controller.CanMove) {
+    if (Controller.StopMove) {
       Character.Velocity = Vector2.Zero;
       return;
     }
+
+    if (!Controller.CanControl)
+      return;
+    
     if (Controller.MovementDirection == Vector2.Zero) {
       EmitSignal("IdleAnimation");
       Character.Velocity = Vector2.Zero;

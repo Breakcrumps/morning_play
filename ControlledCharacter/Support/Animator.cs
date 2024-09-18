@@ -56,7 +56,7 @@ partial class Animator : Node2D {
     }
 
     AnimationPlayer.Play("Unsheethe");
-    Controller.CanMove = false;
+    Controller.StopMove = true;
 
   }
   private void AttackAnimation() {
