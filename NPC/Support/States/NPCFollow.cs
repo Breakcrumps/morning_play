@@ -9,6 +9,8 @@ partial class NPCFollow : State {
   private NPC NPC { get; set; }
   [Export]
   private int MovementSpeed { get; set; } = 10;
+  [Export]
+  private AnimationPlayer Animator { get; set; }
   private PlayableCharacter Character => (PlayableCharacter)GetTree().GetFirstNodeInGroup("MC");
 
   public override void Enter() {
@@ -20,6 +22,10 @@ partial class NPCFollow : State {
 
   public override void Process(double delta) {
 
+    if (Character is null) {
+      return;
+    }
+
     Vector2 direction = Character.GlobalPosition - NPC.GlobalPosition;
 
     if (direction.Length() > 70) {
@@ -29,6 +35,7 @@ partial class NPCFollow : State {
 
     if (direction.Length() < 30) {
       NPC.Velocity = Vector2.Zero;
+      Animator.Play("SwordAttack");
       return;
     }
 

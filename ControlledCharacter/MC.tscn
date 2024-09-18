@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b25pwv7emisxn"]
+[gd_scene load_steps=21 format=3 uid="uid://b25pwv7emisxn"]
 
 [ext_resource type="Script" path="res://ControlledCharacter/PlayableCharacter.cs" id="1_cclyo"]
 [ext_resource type="Texture2D" uid="uid://b2ayjwiclsx4s" path="res://ControlledCharacter/Sprite-0001.png" id="1_kjxek"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://ControlledCharacter/Support/Animator.cs" id="5_qpw5d"]
 [ext_resource type="PackedScene" uid="uid://cekvcfd07b0wx" path="res://Components/Weapon.tscn" id="6_ts87b"]
 [ext_resource type="Script" path="res://Support/Collider.cs" id="7_jc4js"]
+[ext_resource type="PackedScene" uid="uid://xkpsa6basfcb" path="res://Components/HurtboxComponent.tscn" id="8_hep3c"]
+[ext_resource type="Script" path="res://Components/HealthComponent.cs" id="9_hstch"]
 
 [sub_resource type="Animation" id="Animation_cssbl"]
 resource_name = "Idle"
@@ -102,7 +104,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [16, 17, 18]
+"values": [16, 19, 18]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -172,7 +174,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_w3pbq"]
 resource_name = "Unsheethed_Idle"
-loop_mode = 1
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -197,10 +198,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.500001),
+"times": PackedFloat32Array(0, 0.516667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [11, 15]
+"values": [15, 11]
 }
 
 [sub_resource type="Animation" id="Animation_dv3sc"]
@@ -235,7 +236,10 @@ _data = {
 size = Vector2(19, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l0an2"]
-size = Vector2(32, 29)
+size = Vector2(46, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5aw4"]
+size = Vector2(19, 31)
 
 [node name="MC" type="CharacterBody2D" groups=["MC"]]
 script = ExtResource("1_cclyo")
@@ -268,12 +272,27 @@ AnimationPlayer = NodePath("../AnimationPlayer")
 Controller = NodePath("../Controller")
 
 [node name="Weapon" parent="." instance=ExtResource("6_ts87b")]
+collision_layer = 1
 AttackStrength = 50
 Knockback = 100
 StunTime = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
-position = Vector2(0, -0.5)
+position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_l0an2")
 disabled = true
 script = ExtResource("7_jc4js")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("8_hep3c")]
+collision_layer = 1
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_j5aw4")
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("Character", "Controller")]
+script = ExtResource("9_hstch")
+MaxHealth = 100
+Character = NodePath("..")
+Controller = NodePath("../Controller")

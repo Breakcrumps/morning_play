@@ -18,6 +18,8 @@ partial class Weapon : Area2D {
   }
 
   private void DealDamage(Area2D area) {
+    if (area is not HurtboxComponent)
+      return;
     var hurtbox = (HurtboxComponent)area;
     Attack attack = new() {
       AttackDamage = AttackStrength,

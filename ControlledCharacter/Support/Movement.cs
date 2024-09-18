@@ -23,7 +23,7 @@ partial class Movement : Node2D {
 
   [Export]
   private Controller Controller { get; set; }
-  private PlayableCharacter Character => GetParent<PlayableCharacter>();
+  private PlayableCharacter Character => GetOwner<PlayableCharacter>();
 
   public override void _PhysicsProcess(double delta) {
     SetVelocity();

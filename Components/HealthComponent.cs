@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Godot;
+using Morning_Play.ControlledCharacter;
 using Morning_Play.NPC;
 using Morning_Play.Types;
 
@@ -11,10 +12,12 @@ partial class HealthComponent : Node2D {
   [Export]
   private int MaxHealth { get; set; }
   private int Health { get; set; }
-  [Export]
-  private CharacterBody2D Character { get; set; }
+  private CharacterBody2D Character => GetOwner<CharacterBody2D>();
+  [ExportGroup("State-NPC Control-Playable")]
   [Export]
   private StateMachine StateMachine { get; set; }
+  [Export]
+  private Controller Controller { get; set; }
 
   public override void _Ready() {
     Health = MaxHealth;
@@ -36,11 +39,17 @@ partial class HealthComponent : Node2D {
     var initVelocity = (GlobalPosition - attackPos).Normalized() * knockBackForce;
     Character.Velocity = initVelocity;
 
-    StateMachine.CanManageState = false;
+    if (StateMachine is not null)
+      StateMachine.CanManageState = false;
+    else
+      Controller.CanMove = false;
     
     await Decelerate(stunTime, initVelocity);
 
-    StateMachine.CanManageState = true;
+    if (StateMachine is not null)
+      StateMachine.CanManageState = true;
+    else
+      Controller.CanMove = true;
 
   }
 
