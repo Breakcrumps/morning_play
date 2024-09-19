@@ -11,11 +11,8 @@ partial class Movement : Node2D {
 
   private static int AccelerationTime => 5;
   private static int Speed { get; set; } = 0;
-  private int MaxSpeed() {
-    if (Controller.Run)
-      return RunSpeed;
-    return WalkSpeed;
-  }
+  private int MaxSpeed => Controller.Run? RunSpeed : WalkSpeed;
+  
   [ExportGroup("Stats")]
   [Export]
   private int WalkSpeed { get; set; } = 75;
@@ -57,10 +54,10 @@ partial class Movement : Node2D {
     }
 
     EmitSignal("WalkAnimation");
-    if (Speed < MaxSpeed())
-      Speed += MaxSpeed() / AccelerationTime;
+    if (Speed < MaxSpeed)
+      Speed += MaxSpeed / AccelerationTime;
     else
-      Speed = MaxSpeed();
+      Speed = MaxSpeed;
     Character.Velocity = Controller.MovementDirection.Normalized() * Speed;
     
   }
