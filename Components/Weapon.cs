@@ -6,6 +6,7 @@ namespace Morning_Play.Components;
 [GlobalClass]
 partial class Weapon : Area2D {
 
+  [ExportGroup("Stats")]
   [Export]
   private int AttackStrength { get; set; } = 10;
   [Export]

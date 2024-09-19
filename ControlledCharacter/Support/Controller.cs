@@ -5,6 +5,7 @@ namespace Morning_Play.ControlledCharacter;
 
 partial class Controller : Node2D {
 
+  [ExportGroup("Flags (ignore)")]
   [Export]
   public bool CanControl { get; set; } = true;
   [Export]
@@ -18,6 +19,7 @@ partial class Controller : Node2D {
   private bool UnsheetheButton => IsActionJustPressed("Unsheethe");
   private bool AttackButton => IsActionJustPressed("Attack");
   public bool Run => IsActionPressed("Run");
+  public bool Dash => IsActionPressed("Dash");
 
   public Vector2 MovementDirection => new(DirX(), DirY());
 

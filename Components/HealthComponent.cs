@@ -9,6 +9,7 @@ namespace Morning_Play.Components;
 [GlobalClass]
 partial class HealthComponent : Node2D {
 
+  [ExportGroup("Stats")]
   [Export]
   private int MaxHealth { get; set; }
   private int Health { get; set; }

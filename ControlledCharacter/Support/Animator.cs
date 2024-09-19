@@ -4,16 +4,18 @@ namespace Morning_Play.ControlledCharacter;
 
 partial class Animator : Node2D {
 
+  [ExportGroup("Flags (ignore)")]
   [Export]
   private bool WeaponOut { get; set; } = false;
+  [Export]
+  private bool CanAnimate { get; set; } = true;
+  [ExportGroup("Nodes")]
   [Export]
   private Movement Movement { get; set; }
   [Export]
   private AnimationPlayer AnimationPlayer { get; set; }
   [Export]
   private Controller Controller { get; set; }
-  [Export]
-  private bool CanAnimate { get; set; } = true;
 
   public override void _Ready() {
     Movement.IdleAnimation += IdleAnimation;

@@ -5,15 +5,19 @@ namespace Morning_Play.NPC;
 
 partial class NPCIdle : State {
 
+  [ExportGroup("Stats")]
+  [Export]
+  private int MovementSpeed { get; set; } = 10;
+  [Export]
+  private int FollowDistance { get; set; } = 60;
+  private Vector2 MovementDirection { get; set; }
+  private double WanderTime { get; set; }
+
+  [ExportGroup("Nodes")]
   [Export]
   private NPC NPC { get; set; }
   private PlayableCharacter Character =>
       (PlayableCharacter)GetTree().GetFirstNodeInGroup("MC");
-
-  [Export]
-  private int MovementSpeed { get; set; } = 10;
-  private Vector2 MovementDirection { get; set; }
-  private double WanderTime { get; set; }
 
   private void RandomiseWander() {
     MovementDirection = 
@@ -37,7 +41,7 @@ partial class NPCIdle : State {
 
     Vector2 direction = Character.GlobalPosition - NPC.GlobalPosition;
     
-    if (direction.Length() < 50) {
+    if (direction.Length() < FollowDistance) {
       EmitSignal("Transition", "Follow");
       return;
     }

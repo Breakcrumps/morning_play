@@ -5,10 +5,16 @@ namespace Morning_Play.NPC;
 
 partial class NPCFollow : State {
 
-  [Export]
-  private NPC NPC { get; set; }
+  [ExportGroup("Stats")]
   [Export]
   private int MovementSpeed { get; set; } = 10;
+  [Export]
+  private int LoseDistance { get; set; } = 70;
+  [Export]
+  private int StopAndAttackDistance { get; set; } = 30;
+  [ExportGroup("Nodes")]
+  [Export]
+  private NPC NPC { get; set; }
   [Export]
   private AnimationPlayer Animator { get; set; }
   private PlayableCharacter Character => (PlayableCharacter)GetTree().GetFirstNodeInGroup("MC");
@@ -28,12 +34,12 @@ partial class NPCFollow : State {
 
     Vector2 direction = Character.GlobalPosition - NPC.GlobalPosition;
 
-    if (direction.Length() > 70) {
+    if (direction.Length() > LoseDistance) {
       EmitSignal("Transition", "Idle");
       return;
     }
 
-    if (direction.Length() < 30) {
+    if (direction.Length() < StopAndAttackDistance) {
       NPC.Velocity = Vector2.Zero;
       Animator.Play("SwordAttack");
       return;
