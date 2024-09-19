@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Morning_Play.Support;
 
 [GlobalClass]

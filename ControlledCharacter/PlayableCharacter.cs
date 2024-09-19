@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Morning_Play.ControlledCharacter;
 
 partial class PlayableCharacter : CharacterBody2D {

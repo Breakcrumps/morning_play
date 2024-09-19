@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Morning_Play.NPC;
 
 abstract partial class State : Node2D {

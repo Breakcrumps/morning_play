@@ -1,6 +1,3 @@
-using static Godot.Input;
-using Godot;
-
 namespace Morning_Play.ControlledCharacter;
 
 partial class Controller : Node2D {

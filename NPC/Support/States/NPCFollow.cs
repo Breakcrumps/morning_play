@@ -1,4 +1,3 @@
-using Godot;
 using Morning_Play.ControlledCharacter;
 
 namespace Morning_Play.NPC;

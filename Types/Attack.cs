@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Morning_Play.Types;
 
 partial struct Attack {
