@@ -7,11 +7,11 @@ partial class Weapon : Area2D {
 
   [ExportGroup("Stats")]
   [Export]
-  private int AttackStrength { get; set; } = 10;
+  private byte AttackStrength { get; set; } = 10;
   [Export]
-  private int Knockback { get; set; } = 10;
+  private byte Knockback { get; set; } = 10;
   [Export]
-  private int StunTime { get; set; } = 5;
+  private byte StunTime { get; set; } = 5;
 
   public override void _Ready() {
     AreaEntered += DealDamage;

@@ -1,8 +1,8 @@
 namespace Morning_Play.Types;
 
-class Attack {
-  public int AttackDamage { get; set; }
-  public int KnockbackForce { get; set; }
-  public int StunTime { get; set; }
+struct Attack {
+  public byte AttackDamage { get; set; }
+  public byte KnockbackForce { get; set; }
+  public byte StunTime { get; set; }
   public Vector2 AttackPosition { get; set; }
 }
