@@ -1,6 +1,6 @@
 namespace Morning_Play.Types;
 
-struct Attack {
+class Attack {
   public int AttackDamage { get; set; }
   public int KnockbackForce { get; set; }
   public int StunTime { get; set; }
