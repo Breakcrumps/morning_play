@@ -6,7 +6,6 @@ namespace Morning_Play.NPC;
 [GlobalClass]
 partial class StateMachine : Node2D {
 
-
   public bool CanManageState { get; set; } = true;
 
   [Export]

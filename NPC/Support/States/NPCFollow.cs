@@ -11,6 +11,7 @@ partial class NPCFollow : State {
   private int _loseDistance = 70;
   [Export]
   private int _stopAndAttackDistance = 30;
+  
   [ExportGroup("Nodes")]
   [Export]
   private NPC NPC { get; set; }

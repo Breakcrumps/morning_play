@@ -8,11 +8,13 @@ namespace Morning_Play.Components;
 [GlobalClass]
 partial class HealthComponent : Node2D {
 
+  private CharacterBody2D Character => GetOwner<CharacterBody2D>();
+
   [ExportGroup("Stats")]
   [Export]
   private int _maxHealth;
   private int _health;
-  private CharacterBody2D Character => GetOwner<CharacterBody2D>();
+  
   [ExportGroup("State-NPC Control-Playable")]
   [Export]
   private StateMachine StateMachine { get; set; }

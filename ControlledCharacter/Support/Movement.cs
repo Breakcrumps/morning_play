@@ -9,9 +9,8 @@ partial class Movement : Node2D {
   [Signal]
   public delegate void WalkAnimationEventHandler();
 
-  private int _accelerationTime = 5;
   private int _currentSpeed = 0;
-  private int MaxSpeed => Controller.Run? _runSpeed : _walkSpeed;
+  private int _accelerationTime = 5;
   
   [ExportGroup("Stats")]
   [Export]
@@ -22,6 +21,8 @@ partial class Movement : Node2D {
   private int _dashVelocity = 200;
   [Export]
   private int _dashTime = 200;
+
+  private int MaxSpeed => Controller.Run? _runSpeed : _walkSpeed;
 
   [ExportGroup("Nodes")]
   [Export]
