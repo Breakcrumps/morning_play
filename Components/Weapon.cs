@@ -7,9 +7,9 @@ partial class Weapon : Area2D {
 
   [ExportGroup("Stats")]
   [Export]
-  private byte AttackStrength { get; set; } = 10;
+  private byte AttackDamage { get; set; } = 10;
   [Export]
-  private byte Knockback { get; set; } = 10;
+  private byte KnockbackForce { get; set; } = 10;
   [Export]
   private byte StunTime { get; set; } = 5;
 
@@ -22,12 +22,12 @@ partial class Weapon : Area2D {
       return;
     var hurtbox = (HurtboxComponent)area;
     Attack attack = new() {
-      AttackDamage = AttackStrength,
-      KnockbackForce = Knockback,
+      AttackDamage = AttackDamage,
+      KnockbackForce = KnockbackForce,
       StunTime = StunTime,
       AttackPosition = GlobalPosition
     };
-    attack.AttackDamage = AttackStrength;
+    attack.AttackDamage = AttackDamage;
     hurtbox.TakeDamage(attack);
   }
 
