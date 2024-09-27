@@ -12,10 +12,10 @@ partial class HealthComponent : Node2D {
 
   [ExportGroup("Stats")]
   [Export]
-  private int _maxHealth;
+  private int _maxHealth = 100;
   private int _health;
   
-  [ExportGroup("State-NPC Control-Playable")]
+  [ExportGroup("(EITHER!) (State for NPC)")]
   [Export]
   private StateMachine StateMachine { get; set; }
   [Export]

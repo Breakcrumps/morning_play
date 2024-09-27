@@ -9,9 +9,9 @@ partial class Weapon : Area2D {
   [Export]
   private byte _attackDamage = 10;
   [Export]
-  private byte _knockbackForce = 10;
+  private byte _knockbackForce = 100;
   [Export]
-  private byte _stunTime = 5;
+  private byte _stunTime = 25;
 
   public override void _Ready() {
     AreaEntered += DealDamage;
