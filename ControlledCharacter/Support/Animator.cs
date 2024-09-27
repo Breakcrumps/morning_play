@@ -4,9 +4,10 @@ partial class Animator : Node2D {
 
   [ExportGroup("Flags (ignore)")]
   [Export]
-  private bool WeaponOut { get; set; } = false;
+  private bool _weaponOut = false;
   [Export]
-  private bool CanAnimate { get; set; } = true;
+  private bool _canAnimate = true;
+  
   [ExportGroup("Nodes")]
   [Export]
   private Movement Movement { get; set; }
@@ -24,10 +25,10 @@ partial class Animator : Node2D {
 
   private void IdleAnimation() {
 
-    if (!CanAnimate)
+    if (!_canAnimate)
       return;
 
-    if (WeaponOut) {
+    if (_weaponOut) {
       AnimationPlayer.Play("Unsheethed_Idle");
       return;
     }
@@ -37,10 +38,10 @@ partial class Animator : Node2D {
   }
   private void WalkAnimation() {
 
-    if (!CanAnimate)
+    if (!_canAnimate)
       return;
 
-    if (WeaponOut) {
+    if (_weaponOut) {
       AnimationPlayer.Play("Unsheethed_Walk");
       return;
     }
@@ -50,8 +51,8 @@ partial class Animator : Node2D {
   }
   private void WeaponAnimation() {
 
-    if (WeaponOut) {
-      WeaponOut = false;
+    if (_weaponOut) {
+      _weaponOut = false;
       return;
     }
 
@@ -60,10 +61,10 @@ partial class Animator : Node2D {
 
   }
   private void AttackAnimation() {
-    if (!WeaponOut)
+    if (!_weaponOut)
       return;
     AnimationPlayer.Play("SwordAttack");
-    CanAnimate = false;
+    _canAnimate = false;
   }
 
 }

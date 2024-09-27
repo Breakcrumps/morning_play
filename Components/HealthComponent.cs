@@ -10,8 +10,8 @@ partial class HealthComponent : Node2D {
 
   [ExportGroup("Stats")]
   [Export]
-  private int MaxHealth { get; set; }
-  private int Health { get; set; }
+  private int _maxHealth;
+  private int _health;
   private CharacterBody2D Character => GetOwner<CharacterBody2D>();
   [ExportGroup("State-NPC Control-Playable")]
   [Export]
@@ -20,16 +20,16 @@ partial class HealthComponent : Node2D {
   private Controller Controller { get; set; }
 
   public override void _Ready() {
-    Health = MaxHealth;
+    _health = _maxHealth;
   }
 
   public async void TakeDamage(Attack attack) {
 
-    Health -= attack.AttackDamage;
+    _health -= attack.AttackDamage;
 
     await Knockback(attack.AttackPosition, attack.KnockbackForce, attack.StunTime);
 
-    if (Health <= 0)
+    if (_health <= 0)
       GetParent().QueueFree();
 
   }

@@ -10,19 +10,19 @@ partial class StateMachine : Node2D {
   public bool CanManageState { get; set; } = true;
 
   [Export]
-  private State InitialState { get; set; }
-  private State CurrentState { get; set; }
-  private readonly Dictionary<string, State> states = [];
+  private State _initialState;
+  private State _currentState;
+  private readonly Dictionary<string, State> _states = [];
 
   public override void _Ready() {
 
     foreach (var state in GetChildren().Cast<State>()) {
-      states.Add(state.Name, state);
+      _states.Add(state.Name, state);
       state.Transition += OnTransition;
     }
 
-    InitialState.Enter();
-    CurrentState = InitialState;
+    _initialState.Enter();
+    _currentState = _initialState;
 
   }
 
@@ -31,7 +31,7 @@ partial class StateMachine : Node2D {
     if (!CanManageState)
       return;
 
-    CurrentState.Process(delta);
+    _currentState.Process(delta);
 
   }
   public override void _PhysicsProcess(double delta) {
@@ -39,18 +39,18 @@ partial class StateMachine : Node2D {
     if (!CanManageState)
       return;
 
-    CurrentState.PhysicsProcess(delta);
+    _currentState.PhysicsProcess(delta);
 
   }
 
   private void OnTransition(string newStateName) {
       
-    State newState = states[newStateName];
+    State newState = _states[newStateName];
     
-    CurrentState.Exit();
+    _currentState.Exit();
     newState.Enter();
 
-    CurrentState = newState;
+    _currentState = newState;
 
   }
 

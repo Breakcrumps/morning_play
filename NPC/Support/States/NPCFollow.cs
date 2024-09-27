@@ -6,11 +6,11 @@ partial class NPCFollow : State {
 
   [ExportGroup("Stats")]
   [Export]
-  private int MovementSpeed { get; set; } = 10;
+  private int _movementSpeed = 10;
   [Export]
-  private int LoseDistance { get; set; } = 70;
+  private int _loseDistance = 70;
   [Export]
-  private int StopAndAttackDistance { get; set; } = 30;
+  private int _stopAndAttackDistance = 30;
   [ExportGroup("Nodes")]
   [Export]
   private NPC NPC { get; set; }
@@ -33,18 +33,18 @@ partial class NPCFollow : State {
 
     Vector2 direction = Character.GlobalPosition - NPC.GlobalPosition;
 
-    if (direction.Length() > LoseDistance) {
+    if (direction.Length() > _loseDistance) {
       EmitSignal("Transition", "Idle");
       return;
     }
 
-    if (direction.Length() < StopAndAttackDistance) {
+    if (direction.Length() < _stopAndAttackDistance) {
       NPC.Velocity = Vector2.Zero;
       Animator.Play("SwordAttack");
       return;
     }
 
-    NPC.Velocity = direction.Normalized() * MovementSpeed;
+    NPC.Velocity = direction.Normalized() * _movementSpeed;
 
   }
   public override void PhysicsProcess(double delta) {

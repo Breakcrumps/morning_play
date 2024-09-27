@@ -6,11 +6,11 @@ partial class NPCIdle : State {
 
   [ExportGroup("Stats")]
   [Export]
-  private int MovementSpeed { get; set; } = 10;
+  private int _movementSpeed = 10;
   [Export]
-  private int FollowDistance { get; set; } = 60;
-  private Vector2 MovementDirection { get; set; }
-  private double WanderTime { get; set; }
+  private int _followDistance = 60;
+  private Vector2 _movementDirection;
+  private double wanderTime;
 
   [ExportGroup("Nodes")]
   [Export]
@@ -19,28 +19,28 @@ partial class NPCIdle : State {
       (PlayableCharacter)GetTree().GetFirstNodeInGroup("MC");
 
   private void RandomiseWander() {
-    MovementDirection = 
+    _movementDirection = 
         new Vector2((float)GD.RandRange(-1.0, 1.0), (float)GD.RandRange(-1.0, 1.0));
-    WanderTime = GD.RandRange(0, 5);
+    wanderTime = GD.RandRange(0, 5);
   }
 
   public override void Enter() {
     RandomiseWander();
   }
   public override void Process(double delta) {
-    if (WanderTime < 0) {
+    if (wanderTime < 0) {
       RandomiseWander();
       return;
     }
-    WanderTime -= delta;
+    wanderTime -= delta;
   }
   public override void PhysicsProcess(double delta) {
 
-    NPC.Velocity = MovementDirection * MovementSpeed;
+    NPC.Velocity = _movementDirection * _movementSpeed;
 
     Vector2 direction = Character.GlobalPosition - NPC.GlobalPosition;
     
-    if (direction.Length() < FollowDistance) {
+    if (direction.Length() < _followDistance) {
       EmitSignal("Transition", "Follow");
       return;
     }

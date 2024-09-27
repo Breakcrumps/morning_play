@@ -9,23 +9,23 @@ partial class Movement : Node2D {
   [Signal]
   public delegate void WalkAnimationEventHandler();
 
-  private static int AccelerationTime => 5;
-  private static int Speed { get; set; } = 0;
-  private int MaxSpeed => Controller.Run? RunSpeed : WalkSpeed;
+  private int _accelerationTime = 5;
+  private int _currentSpeed = 0;
+  private int MaxSpeed => Controller.Run? _runSpeed : _walkSpeed;
   
   [ExportGroup("Stats")]
   [Export]
-  private int WalkSpeed { get; set; } = 75;
+  private int _walkSpeed = 75;
   [Export]
-  private int RunSpeed { get; set; } = 100;
+  private int _runSpeed = 100;
   [Export]
-  private int DashVelocity { get; set; } = 200;
+  private int _dashVelocity = 200;
   [Export]
-  private int DashTime { get; set; } = 200;
+  private int _dashTime = 200;
 
   [ExportGroup("Nodes")]
   [Export]
-  private Controller Controller { get; set; }
+  private Controller Controller;
   private PlayableCharacter Character => GetOwner<PlayableCharacter>();
 
   public override void _PhysicsProcess(double delta) {
@@ -54,11 +54,11 @@ partial class Movement : Node2D {
     }
 
     EmitSignal("WalkAnimation");
-    if (Speed < MaxSpeed)
-      Speed += MaxSpeed / AccelerationTime;
+    if (_currentSpeed < MaxSpeed)
+      _currentSpeed += MaxSpeed / _accelerationTime;
     else
-      Speed = MaxSpeed;
-    Character.Velocity = Controller.MovementDirection.Normalized() * Speed;
+      _currentSpeed = MaxSpeed;
+    Character.Velocity = Controller.MovementDirection.Normalized() * _currentSpeed;
     
   }
 
@@ -66,16 +66,16 @@ partial class Movement : Node2D {
 
     Controller.CanControl = false;
 
-    Vector2 initVelocity = Controller.MovementDirection.Normalized() * DashVelocity;
+    Vector2 initVelocity = Controller.MovementDirection.Normalized() * _dashVelocity;
     Character.Velocity = initVelocity;
 
-    for (int i = DashTime; i > 0; i--) {
+    for (int i = _dashTime; i > 0; i--) {
 
       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
       
       var velocity = Character.Velocity;
-      velocity.X -= initVelocity.X / DashTime;
-      velocity.Y -= initVelocity.Y / DashTime;
+      velocity.X -= initVelocity.X / _dashTime;
+      velocity.Y -= initVelocity.Y / _dashTime;
       Character.Velocity = velocity;
 
     }
