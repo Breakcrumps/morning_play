@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://b74fs8xyttlyg"]
 
-[ext_resource type="Script" path="res://NPC/NPC.cs" id="1_kojak"]
+[ext_resource type="Script" path="res://NPC/Npc.cs" id="1_kojak"]
 [ext_resource type="Texture2D" uid="uid://b2ayjwiclsx4s" path="res://ControlledCharacter/Sprite-0001.png" id="1_weakl"]
 [ext_resource type="Script" path="res://NPC/Support/StateMachine.cs" id="2_mq2ms"]
-[ext_resource type="Script" path="res://NPC/Support/States/NPCIdle.cs" id="3_nmooi"]
-[ext_resource type="Script" path="res://NPC/Support/States/NPCFollow.cs" id="5_yiehr"]
+[ext_resource type="Script" path="res://NPC/Support/States/NpcIdle.cs" id="4_6qokn"]
+[ext_resource type="Script" path="res://NPC/Support/States/NpcFollow.cs" id="5_s08qc"]
 [ext_resource type="PackedScene" uid="uid://duissnhu3fc2c" path="res://Components/HealthComponent.tscn" id="6_evdp1"]
 [ext_resource type="PackedScene" uid="uid://xkpsa6basfcb" path="res://Components/HurtboxComponent.tscn" id="7_e4p42"]
 [ext_resource type="PackedScene" uid="uid://cekvcfd07b0wx" path="res://Components/Weapon.tscn" id="8_vl4tt"]
@@ -81,7 +81,7 @@ size = Vector2(19, 31)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nnm4r"]
 size = Vector2(46, 46)
 
-[node name="NPC" type="CharacterBody2D"]
+[node name="Npc" type="CharacterBody2D"]
 script = ExtResource("1_kojak")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -103,14 +103,15 @@ shape = SubResource("RectangleShape2D_dol51")
 script = ExtResource("2_mq2ms")
 _initialState = NodePath("Idle")
 
-[node name="Idle" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("NPC")]
-script = ExtResource("3_nmooi")
-NPC = NodePath("../..")
+[node name="Idle" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("Npc")]
+script = ExtResource("4_6qokn")
+_followDistance = 100
+Npc = NodePath("../..")
 
-[node name="Follow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("NPC", "Animator")]
-script = ExtResource("5_yiehr")
-_movementSpeed = 40
-NPC = NodePath("../..")
+[node name="Follow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("Npc", "Animator")]
+script = ExtResource("5_s08qc")
+_loseDistance = 130
+Npc = NodePath("../..")
 Animator = NodePath("../../AnimationPlayer")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("StateMachine") instance=ExtResource("6_evdp1")]
@@ -126,6 +127,8 @@ shape = SubResource("RectangleShape2D_87hw0")
 
 [node name="Weapon" parent="." instance=ExtResource("8_vl4tt")]
 collision_mask = 1
+_knockbackForce = 500
+_stunTime = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
 position = Vector2(1, 1)

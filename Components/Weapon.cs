@@ -3,15 +3,15 @@ using Morning_Play.Types;
 namespace Morning_Play.Components;
 
 [GlobalClass]
-partial class Weapon : Area2D {
+internal partial class Weapon : Area2D {
 
   [ExportGroup("Stats")]
   [Export]
-  private byte _attackDamage = 10;
+  private int _attackDamage = 10;
   [Export]
-  private byte _knockbackForce = 100;
+  private int _knockbackForce = 500;
   [Export]
-  private byte _stunTime = 25;
+  private int _stunTime = 15;
 
   public override void _Ready() {
     AreaEntered += DealDamage;
@@ -19,10 +19,8 @@ partial class Weapon : Area2D {
 
   private void DealDamage(Area2D area) {
 
-    if (area is not HurtboxComponent)
+    if (area is not HurtboxComponent hurtbox)
       return;
-
-    var hurtbox = (HurtboxComponent)area;
 
     Attack attack = new() {
       AttackDamage = _attackDamage,
@@ -31,7 +29,6 @@ partial class Weapon : Area2D {
       AttackPosition = GlobalPosition
     };
     
-    attack.AttackDamage = _attackDamage;
     hurtbox.TakeDamage(attack);
 
   }

@@ -1,6 +1,6 @@
 namespace Morning_Play.NPC;
 
-abstract partial class State : Node2D {
+internal abstract partial class State : Node2D {
   
   [Signal]
   public delegate void TransitionEventHandler(string newStateName);

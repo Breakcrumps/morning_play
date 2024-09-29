@@ -2,7 +2,7 @@ using Morning_Play.Types;
 
 namespace Morning_Play.Components;
 
-partial class HurtboxComponent : Area2D {
+internal partial class HurtboxComponent : Area2D {
 
   [Export]
   private HealthComponent HealthComponent { get; set; }

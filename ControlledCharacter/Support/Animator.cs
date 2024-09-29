@@ -1,6 +1,6 @@
 namespace Morning_Play.ControlledCharacter;
 
-partial class Animator : Node2D {
+internal partial class Animator : Node2D {
 
   [ExportGroup("Flags (ignore)")]
   [Export]
@@ -19,7 +19,7 @@ partial class Animator : Node2D {
   public override void _Ready() {
     Movement.IdleAnimation += IdleAnimation;
     Movement.WalkAnimation += WalkAnimation;
-    Controller.Unsheethe += WeaponAnimation;
+    Controller.Unsheathe += WeaponAnimation;
     Controller.Attack += AttackAnimation;
   }
 
@@ -29,7 +29,7 @@ partial class Animator : Node2D {
       return;
 
     if (_weaponOut) {
-      AnimationPlayer.Play("Unsheethed_Idle");
+      AnimationPlayer.Play("Unsheathed_Idle");
       return;
     }
 
@@ -42,7 +42,7 @@ partial class Animator : Node2D {
       return;
 
     if (_weaponOut) {
-      AnimationPlayer.Play("Unsheethed_Walk");
+      AnimationPlayer.Play("Unsheathed_Walk");
       return;
     }
 
@@ -56,7 +56,7 @@ partial class Animator : Node2D {
       return;
     }
 
-    AnimationPlayer.Play("Unsheethe");
+    AnimationPlayer.Play("Unsheathe");
     Controller.StopMove = true;
 
   }

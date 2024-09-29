@@ -2,15 +2,12 @@ using System.Threading.Tasks;
 
 namespace Morning_Play.ControlledCharacter;
 
-partial class Movement : Node2D {
+internal partial class Movement : Node2D {
 
   [Signal]
   public delegate void IdleAnimationEventHandler();
   [Signal]
   public delegate void WalkAnimationEventHandler();
-
-  private int _currentSpeed = 0;
-  private int _accelerationTime = 5;
   
   [ExportGroup("Stats")]
   [Export]
@@ -18,22 +15,22 @@ partial class Movement : Node2D {
   [Export]
   private int _runSpeed = 100;
   [Export]
-  private int _dashVelocity = 200;
+  private int _dashVelocity = 500;
   [Export]
-  private int _dashTime = 200;
+  private int _dashTime = 15;
 
-  private int MaxSpeed => Controller.Run? _runSpeed : _walkSpeed;
+  private int Speed => Controller.Run? _runSpeed : _walkSpeed;
 
   [ExportGroup("Nodes")]
   [Export]
-  private Controller Controller;
+  private Controller Controller { get; set; }
   private PlayableCharacter Character => GetOwner<PlayableCharacter>();
 
   public override void _PhysicsProcess(double delta) {
-    SetVelocity();
+    SetVelocity(Speed);
   }
 
-  public async void SetVelocity() {
+  private async void SetVelocity(int speed) {
 
     if (Controller.StopMove) {
       Character.Velocity = Vector2.Zero;
@@ -43,31 +40,29 @@ partial class Movement : Node2D {
     if (!Controller.CanControl)
       return;
     
-    if (Controller.MovementDirection == Vector2.Zero) {
+    Vector2 movementDirection = new(Controller.DirX(), Controller.DirY());
+
+    if (movementDirection == Vector2.Zero) {
       EmitSignal("IdleAnimation");
       Character.Velocity = Vector2.Zero;
       return;
     }
 
     if (Controller.Dash) {
-      await Dash();
+      await Dash(movementDirection, _dashVelocity, _dashTime);
       return;
     }
 
     EmitSignal("WalkAnimation");
-    if (_currentSpeed < MaxSpeed)
-      _currentSpeed += MaxSpeed / _accelerationTime;
-    else
-      _currentSpeed = MaxSpeed;
-    Character.Velocity = Controller.MovementDirection.Normalized() * _currentSpeed;
+    Character.Velocity = movementDirection.Normalized() * speed;
     
   }
 
-  private async Task Dash() {
+  private async Task Dash(Vector2 movementDirection, int dashVelocity, int dashTime) {
 
     Controller.CanControl = false;
 
-    Vector2 initVelocity = Controller.MovementDirection.Normalized() * _dashVelocity;
+    Vector2 initVelocity = movementDirection.Normalized() * dashVelocity;
     Character.Velocity = initVelocity;
 
     for (int i = _dashTime; i > 0; i--) {
@@ -75,8 +70,8 @@ partial class Movement : Node2D {
       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
       
       var velocity = Character.Velocity;
-      velocity.X -= initVelocity.X / _dashTime;
-      velocity.Y -= initVelocity.Y / _dashTime;
+      velocity.X -= initVelocity.X / dashTime;
+      velocity.Y -= initVelocity.Y / dashTime;
       Character.Velocity = velocity;
 
     }

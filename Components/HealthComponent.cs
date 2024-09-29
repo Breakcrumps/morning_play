@@ -6,7 +6,7 @@ using Morning_Play.Types;
 namespace Morning_Play.Components;
 
 [GlobalClass]
-partial class HealthComponent : Node2D {
+internal partial class HealthComponent : Node2D {
 
   private CharacterBody2D Character => GetOwner<CharacterBody2D>();
 

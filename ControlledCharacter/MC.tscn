@@ -132,7 +132,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_jdvem"]
-resource_name = "Unsheethe"
+resource_name = "Unsheathe"
 length = 0.633336
 step = 0.0166667
 tracks/0/type = "value"
@@ -173,7 +173,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_w3pbq"]
-resource_name = "Unsheethed_Idle"
+resource_name = "Unsheathed_Idle"
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -189,7 +189,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ty8ba"]
-resource_name = "Unsheethed_Walk"
+resource_name = "Unsheathed_Walk"
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -226,9 +226,9 @@ _data = {
 "Idle": SubResource("Animation_cssbl"),
 "RESET": SubResource("Animation_vluco"),
 "SwordAttack": SubResource("Animation_mjoma"),
-"Unsheethe": SubResource("Animation_jdvem"),
-"Unsheethed_Idle": SubResource("Animation_w3pbq"),
-"Unsheethed_Walk": SubResource("Animation_ty8ba"),
+"Unsheathe": SubResource("Animation_jdvem"),
+"Unsheathed_Idle": SubResource("Animation_w3pbq"),
+"Unsheathed_Walk": SubResource("Animation_ty8ba"),
 "Walk": SubResource("Animation_dv3sc")
 }
 
@@ -263,8 +263,6 @@ script = ExtResource("3_mhhr1")
 
 [node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("Controller")]
 script = ExtResource("4_pvnam")
-_dashVelocity = 500
-_dashTime = 15
 Controller = NodePath("../Controller")
 
 [node name="Animator" type="Node2D" parent="." node_paths=PackedStringArray("Movement", "AnimationPlayer", "Controller")]
