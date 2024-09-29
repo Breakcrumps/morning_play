@@ -6,30 +6,15 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include=".gitattributes" />
-    <Content Include=".gitignore" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\.gitignore" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\.name" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\encodings.xml" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\indexLayout.xml" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\projectSettingsUpdater.xml" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\vcs.xml" />
-    <Content Include=".idea\.idea.Morning_Play\.idea\workspace.xml" />
-    <Content Include="icon.svg" />
-    <Content Include="icon.svg.import" />
-    <Content Include="Images\Player\Sprite-0001.png" />
-    <Content Include="Images\Player\Sprite-0001.png.import" />
-    <Content Include="Images\Sprite-0002.png" />
-    <Content Include="Images\Sprite-0002.png.import" />
-    <Content Include="Morning_Play.sln" />
-    <Content Include="Prefabs\Components\HealthComponent.tscn" />
-    <Content Include="Prefabs\Components\HurtboxComponent.tscn" />
-    <Content Include="Prefabs\Components\Weapon.tscn" />
-    <Content Include="Prefabs\Enemy\Enemy.tscn" />
-    <Content Include="Prefabs\Player\Player.tscn" />
-    <Content Include="Prefabs\Support\SceneTransition.tscn" />
-    <Content Include="project.godot" />
-    <Content Include="Scenes\Main_Scene.tscn" />
-    <Content Include="Scenes\Next_Scene.tscn" />
+    <Compile Remove=".idea\**" />
+    <Compile Remove="Images\**" />
+    <Compile Remove="Prefabs\**" />
+    <Compile Remove="Scenes\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove=".idea\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <EmbeddedResource Remove="Prefabs\**" />
+    <EmbeddedResource Remove="Scenes\**" />
   </ItemGroup>
 </Project>
