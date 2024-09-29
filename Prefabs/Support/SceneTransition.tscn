@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vtvgyoku4e8p"]
+
+[ext_resource type="Script" path="res://Scripts/Support/SceneTransition.cs" id="1_duvw7"]
+
+[node name="SceneTransition" type="Area2D"]
+script = ExtResource("1_duvw7")

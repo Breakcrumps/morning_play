@@ -1,0 +1,132 @@
+[gd_scene load_steps=16 format=3 uid="uid://b74fs8xyttlyg"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/Enemy.cs" id="1_kojak"]
+[ext_resource type="Texture2D" uid="uid://b2ayjwiclsx4s" path="res://Images/Player/Sprite-0001.png" id="1_weakl"]
+[ext_resource type="Script" path="res://Scripts/Enemy/Support/StateMachine.cs" id="2_mq2ms"]
+[ext_resource type="Script" path="res://Scripts/Enemy/Support/States/EnemyIdle.cs" id="4_6qokn"]
+[ext_resource type="Script" path="res://Scripts/Enemy/Support/States/EnemyFollow.cs" id="5_s08qc"]
+[ext_resource type="PackedScene" uid="uid://duissnhu3fc2c" path="res://Prefabs/Components/HealthComponent.tscn" id="6_evdp1"]
+[ext_resource type="PackedScene" uid="uid://xkpsa6basfcb" path="res://Prefabs/Components/HurtboxComponent.tscn" id="7_e4p42"]
+[ext_resource type="PackedScene" uid="uid://cekvcfd07b0wx" path="res://Prefabs/Components/Weapon.tscn" id="8_vl4tt"]
+[ext_resource type="Script" path="res://Scripts/Support/Collider.cs" id="9_qdkat"]
+
+[sub_resource type="Animation" id="Animation_ksx0q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_slwaq"]
+resource_name = "SwordAttack"
+length = 0.750002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [16, 17, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.483333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1o7gy"]
+_data = {
+"RESET": SubResource("Animation_ksx0q"),
+"SwordAttack": SubResource("Animation_slwaq")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dol51"]
+size = Vector2(19, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87hw0"]
+size = Vector2(19, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnm4r"]
+size = Vector2(46, 46)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_kojak")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_weakl")
+hframes = 4
+vframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1o7gy")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-0.5, 15)
+shape = SubResource("RectangleShape2D_dol51")
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("_initialState")]
+script = ExtResource("2_mq2ms")
+_initialState = NodePath("Idle")
+
+[node name="Idle" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("Enemy")]
+script = ExtResource("4_6qokn")
+Enemy = NodePath("../..")
+
+[node name="Follow" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("Enemy", "Animator")]
+script = ExtResource("5_s08qc")
+Enemy = NodePath("../..")
+Animator = NodePath("../../AnimationPlayer")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("StateMachine") instance=ExtResource("6_evdp1")]
+StateMachine = NodePath("../StateMachine")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("7_e4p42")]
+collision_mask = 1
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_87hw0")
+
+[node name="Weapon" parent="." instance=ExtResource("8_vl4tt")]
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_nnm4r")
+script = ExtResource("9_qdkat")
