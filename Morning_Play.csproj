@@ -21,9 +21,7 @@
     <Content Include="Images\Player\Sprite-0001.png.import" />
     <Content Include="Images\Sprite-0002.png" />
     <Content Include="Images\Sprite-0002.png.import" />
-    <Content Include="Morning_Play.csproj.DotSettings" />
     <Content Include="Morning_Play.sln" />
-    <Content Include="Morning_Play.sln.DotSettings.user" />
     <Content Include="Prefabs\Components\HealthComponent.tscn" />
     <Content Include="Prefabs\Components\HurtboxComponent.tscn" />
     <Content Include="Prefabs\Components\Weapon.tscn" />

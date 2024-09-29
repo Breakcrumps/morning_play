@@ -10,7 +10,7 @@
   private void TransitionScene(Node2D body) {
     if (body is not Player)
       return;
-    GetTree().ChangeSceneToPacked(_scene);
+    GetTree().CallDeferred("change_scene_to_packed", _scene);
   }
 
 }
