@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://d35s7wqg5qbvr"]
+[gd_scene load_steps=7 format=4 uid="uid://d35s7wqg5qbvr"]
 
 [ext_resource type="PackedScene" uid="uid://b25pwv7emisxn" path="res://Prefabs/Player/Player.tscn" id="1_hsfoj"]
 [ext_resource type="Texture2D" uid="uid://ddx3w0u0j60ko" path="res://Images/Sprite-0002.png" id="2_unu0c"]
+[ext_resource type="PackedScene" uid="uid://vtvgyoku4e8p" path="res://Prefabs/Support/SceneTransition.tscn" id="3_dcqa4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7thhm"]
 texture = ExtResource("2_unu0c")
@@ -12,6 +13,10 @@ texture = ExtResource("2_unu0c")
 
 [sub_resource type="TileSet" id="TileSet_x7v5f"]
 sources/0 = SubResource("TileSetAtlasSource_7thhm")
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_biyx0"]
+a = Vector2(-159, -92)
+b = Vector2(-160, 97)
 
 [node name="Next_Scene" type="Node2D"]
 
@@ -26,3 +31,9 @@ tile_set = SubResource("TileSet_x7v5f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3.5, 3.5)
+
+[node name="SceneTransition" parent="." instance=ExtResource("3_dcqa4")]
+_scenePath = "res://Scenes/Main_Scene.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransition"]
+shape = SubResource("SegmentShape2D_biyx0")
