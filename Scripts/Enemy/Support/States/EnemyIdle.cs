@@ -5,17 +5,33 @@ public partial class EnemyIdle : State {
   private int _movementSpeed = 10;
   [Export]
   private int _followDistance = 100;
-  private Vector2 _movementDirection;
-  private double _wanderTime;
+  [Export]
+  private int _maxWanderDistance = 20;
+  private Vector2 _initPosition;
 
   [ExportGroup("Nodes")]
   [Export]
   private Enemy Enemy { get; set; }
   private Player Character => (Player)GetTree().GetFirstNodeInGroup("Player");
-
+  
+  private Vector2 _movementDirection;
+  private double _wanderTime;
+  
+  public override void _Ready() {
+    _initPosition = GlobalPosition;
+  }
+  
   private void RandomiseWander() {
-    _movementDirection = new Vector2((float)GD.RandRange(-1.0, 1.0), (float)GD.RandRange(-1.0, 1.0));
-    _wanderTime = GD.RandRange(0, 5);
+
+    var vectorFromSpawn = GlobalPosition - _initPosition;
+
+    if (vectorFromSpawn.X > _maxWanderDistance || vectorFromSpawn.Y > _maxWanderDistance)
+      _movementDirection = -vectorFromSpawn.Normalized();
+    else 
+      _movementDirection = new Vector2(GD.RandRange(-1, 1), GD.RandRange(-1, 1)).Normalized();
+    
+    _wanderTime = GD.RandRange(1, 4);
+    
   }
 
   public override void Enter() {
