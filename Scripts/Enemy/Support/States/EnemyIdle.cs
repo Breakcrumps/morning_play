@@ -37,7 +37,7 @@ public partial class EnemyIdle : State {
   public override void Enter() {
     RandomiseWander();
   }
-  public override void Exit() { }
+  public override void Exit() {}
   
   public override void Process(double delta) {
     

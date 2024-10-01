@@ -2,6 +2,8 @@
 
   [Export(PropertyHint.File, "*.tscn")]
   private string _scenePath;
+  [Export]
+  private int _spawnIndex = 0;
 
   public override void _Ready() {
     BodyEntered += TransitionScene;
@@ -12,8 +14,11 @@
     if (body is not Player)
       return;
 
-    var scene = ResourceLoader.Load<PackedScene>(_scenePath);
-    GetTree().CallDeferred("change_scene_to_packed", scene);
+    var currentScene = GetOwner<Scene>();
+    var nextScene = ResourceLoader.Load<PackedScene>(_scenePath).Instantiate<Scene>();
+    nextScene.PlayerSpawnIndex = _spawnIndex;
+    GetTree().Root.CallDeferred("add_child", nextScene);
+    GetTree().Root.CallDeferred("remove_child", currentScene);
     
   }
 

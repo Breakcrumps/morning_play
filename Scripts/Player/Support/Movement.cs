@@ -21,7 +21,7 @@ public partial class Movement : Node2D {
   [ExportGroup("Nodes")]
   [Export]
   private Controller Controller { get; set; }
-  private Player Character => GetOwner<Player>();
+  private Player Player => GetOwner<Player>();
 
   public override void _PhysicsProcess(double delta) {
     SetVelocity(Speed);
@@ -30,7 +30,7 @@ public partial class Movement : Node2D {
   private async void SetVelocity(int speed) {
 
     if (Controller.StopMove) {
-      Character.Velocity = Vector2.Zero;
+      Player.Velocity = Vector2.Zero;
       return;
     }
 
@@ -41,7 +41,7 @@ public partial class Movement : Node2D {
 
     if (movementDirection == Vector2.Zero) {
       EmitSignal("IdleAnimation");
-      Character.Velocity = Vector2.Zero;
+      Player.Velocity = Vector2.Zero;
       return;
     }
 
@@ -51,7 +51,7 @@ public partial class Movement : Node2D {
     }
 
     EmitSignal("WalkAnimation");
-    Character.Velocity = movementDirection.Normalized() * speed;
+    Player.Velocity = movementDirection.Normalized() * speed;
     
   }
 
@@ -60,16 +60,16 @@ public partial class Movement : Node2D {
     Controller.CanControl = false;
 
     Vector2 initVelocity = movementDirection.Normalized() * dashVelocity;
-    Character.Velocity = initVelocity;
+    Player.Velocity = initVelocity;
 
     for (int i = _dashTime; i > 0; i--) {
 
       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
       
-      var velocity = Character.Velocity;
+      var velocity = Player.Velocity;
       velocity.X -= initVelocity.X / dashTime;
       velocity.Y -= initVelocity.Y / dashTime;
-      Character.Velocity = velocity;
+      Player.Velocity = velocity;
 
     }
 

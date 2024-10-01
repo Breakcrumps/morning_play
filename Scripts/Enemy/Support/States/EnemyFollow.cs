@@ -15,10 +15,10 @@ public partial class EnemyFollow : State {
   private AnimationPlayer Animator { get; set; }
   private Player Player => (Player)GetTree().GetFirstNodeInGroup("Player");
 
-  public override void Enter() { }
-  public override void Exit() { }
+  public override void Enter() {}
+  public override void Exit() {}
 
-  public override void Process(double delta) { }
+  public override void Process(double delta) {}
   public override void PhysicsProcess(double delta) {
     
     if (Player is null)
