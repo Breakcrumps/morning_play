@@ -11,7 +11,7 @@ public partial class Controller : Node2D {
   [Signal]
   public delegate void AttackEventHandler();
 
-  private bool UnsheatheButton => IsActionJustPressed("Unsheethe");
+  private bool UnsheatheButton => IsActionJustPressed("Unsheathe");
   private bool AttackButton => IsActionJustPressed("Attack");
   public bool Run => IsActionPressed("Run");
   public bool Dash => IsActionPressed("Dash");

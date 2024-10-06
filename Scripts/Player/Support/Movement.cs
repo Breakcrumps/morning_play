@@ -8,9 +8,9 @@ public partial class Movement : Node2D {
   
   [ExportGroup("Stats")]
   [Export]
-  private int _walkSpeed = 75;
+  private int _walkSpeed = 50;
   [Export]
-  private int _runSpeed = 100;
+  private int _runSpeed = 65;
   [Export]
   private int _dashVelocity = 500;
   [Export]
@@ -21,6 +21,8 @@ public partial class Movement : Node2D {
   [ExportGroup("Nodes")]
   [Export]
   private Controller Controller { get; set; }
+  [Export]
+  private Sprite2D Sprite { get; set; }
   private Player Player => GetOwner<Player>();
 
   public override void _PhysicsProcess(double delta) {
@@ -45,6 +47,11 @@ public partial class Movement : Node2D {
       return;
     }
 
+    if (movementDirection.X > 0)
+      Sprite.FlipH = false;
+    else if (movementDirection.X < 0)
+      Sprite.FlipH = true;
+    
     if (Controller.Dash) {
       await Dash(movementDirection, _dashVelocity, _dashTime);
       return;

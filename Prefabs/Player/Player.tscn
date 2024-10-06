@@ -261,9 +261,10 @@ shape = SubResource("RectangleShape2D_2nglr")
 [node name="Controller" type="Node2D" parent="."]
 script = ExtResource("3_mhhr1")
 
-[node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("Controller")]
+[node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("Controller", "Sprite")]
 script = ExtResource("4_pvnam")
 Controller = NodePath("../Controller")
+Sprite = NodePath("../Sprite2D")
 
 [node name="Animator" type="Node2D" parent="." node_paths=PackedStringArray("Movement", "AnimationPlayer", "Controller")]
 script = ExtResource("5_qpw5d")
