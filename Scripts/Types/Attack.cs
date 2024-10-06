@@ -1,4 +1,5 @@
-public class Attack {
+public class Attack
+{
   public int AttackDamage { get; set; }
   public int KnockbackForce { get; set; }
   public int StunTime { get; set; }

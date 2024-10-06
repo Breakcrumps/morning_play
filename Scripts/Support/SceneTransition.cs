@@ -1,16 +1,16 @@
-﻿public partial class SceneTransition : Area2D {
+﻿public partial class SceneTransition : Area2D
+{
+  [Export(PropertyHint.File, "*.tscn")] private string _scenePath;
 
-  [Export(PropertyHint.File, "*.tscn")]
-  private string _scenePath;
-  [Export]
-  private int _spawnIndex = 0;
+  [Export] private int _spawnIndex;
 
-  public override void _Ready() {
+  public override void _Ready()
+  {
     BodyEntered += TransitionScene;
   }
 
-  private void TransitionScene(Node2D body) {
-
+  private void TransitionScene(Node2D body)
+  {
     if (body is not Player)
       return;
 
@@ -19,7 +19,5 @@
     nextScene.PlayerSpawnIndex = _spawnIndex;
     GetTree().Root.CallDeferred("add_child", nextScene);
     GetTree().Root.CallDeferred("remove_child", currentScene);
-    
   }
-
 }
